@@ -104,7 +104,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Administrativo.cs" />
+    <Compile Include="Model\Administrativos.cs" />
     <Compile Include="Model\Contacto.cs" />
     <Compile Include="Model\Information.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,7 +20,7 @@ namespace Proyecto1.Model
         public string city { get; set; }
 
         [BsonElement("contacto")]
-        public Contacto contacto { get; set; }
+        public IList<Contacto> contacto { get; set; }
 
         [BsonExtraElements]
         public BsonDocument Metadata { get; set; }

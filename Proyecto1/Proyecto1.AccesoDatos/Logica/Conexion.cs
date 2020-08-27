@@ -3,8 +3,10 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Proyecto1.Model;
 
 namespace Proyecto1.AccesoDatos
 {
@@ -21,6 +23,13 @@ namespace Proyecto1.AccesoDatos
         {
             var elResultado = laBaseDeDatos.ListCollections();
             return elResultado;
+        }
+
+        public void InsertarAdministrativo(Administrativos losAdministrativos)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
+            collection.InsertOne(losAdministrativos);
         }
     }
 }

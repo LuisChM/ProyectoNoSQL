@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Proyecto1.Model
 {
     [BsonIgnoreExtraElements]
-    public class Administrativo
+    public class Administrativos
     {
         [BsonId]
         public ObjectId AdminId { get; set; }
