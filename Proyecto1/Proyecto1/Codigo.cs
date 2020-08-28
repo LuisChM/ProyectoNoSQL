@@ -28,12 +28,19 @@ namespace Proyecto1
                     case "2":
                         InsertarAdministrativo();
                         break;
+                    case "3":
+                        ActualizarCityAdministrativo();
+                        break;
+                    //case "4":
+                    //    ListarAdministrativosPorNombre();
+                    //    break;
                     default:
                         break;
                 }
             }
         }
 
+        //Listar todas las colecciones
         private void ListaColecciones()
         {
             var client = new Proyecto1.AccesoDatos.Conexion();
@@ -47,6 +54,7 @@ namespace Proyecto1
             }
         }
 
+        //Insertar en la coleccion de Administrativos
         private void InsertarAdministrativo()
         {
             Console.Write("Digite la institucion: ");
@@ -82,16 +90,60 @@ namespace Proyecto1
             administrativo.information.contacto.Add(elContacto);
             var client = new Proyecto1.AccesoDatos.Conexion();
             client.InsertarAdministrativo(administrativo);
-
-
-
         }
+
+        //Actualizar ciudad de coleccion administrativos
+        private void ImprimirListadoDeAdministrativos(IList<Administrativos> laListaDeAdministrativos)
+        {
+            if (laListaDeAdministrativos.Count > 0)
+            {
+                Console.WriteLine("Lista de todos los administrativos:");
+                var contador = 0;
+                foreach (var admin in laListaDeAdministrativos)
+                {
+                    Console.WriteLine(string.Format("Administrativo número {3}: Id: {2}; Nombre: {0}; Ciudad: {1}; ", admin.information.name, admin.information.city, admin.AdminId, contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún administrativo.");
+        }
+
+        private void ActualizarCityAdministrativo()
+        {
+            Console.Write("Digite el nombre del admin: ");
+            var elNombreDelAnimalito = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeAdministrativos = client.ListarAdministrativosPorNombre(elNombreDelAnimalito);
+            ImprimirListadoDeAdministrativos(laListaDeAdministrativos);
+            Console.Write("Seleccione el número admin cuya ciudad desea cambiar: ");
+            var elAdminSeleccionado = Console.ReadLine();
+            var elNumeroDeAdministrativo = 0;
+            if (int.TryParse(elAdminSeleccionado, out elNumeroDeAdministrativo))
+            {
+                if (elNumeroDeAdministrativo >= 0 && elNumeroDeAdministrativo < laListaDeAdministrativos.Count)
+                {
+                    var elRegistroDelAdministrativo = laListaDeAdministrativos[elNumeroDeAdministrativo];
+                    Console.Write(string.Format("La ciudad actual del admin es [{0}]. Digite la nueva ciudad: ", elRegistroDelAdministrativo.information.city));
+                    var elNuevoNombreDelAdmin = Console.ReadLine();
+                    client.ActualizarCityAdministrativo(elRegistroDelAdministrativo.AdminId, elNuevoNombreDelAdmin);
+                }
+            }
+        }
+
+
+
+
+
+
+
 
         private void DesplegarMenu()
         {
             Console.WriteLine("Menu Principal");
             Console.WriteLine("1. Listar las colecciones.");
             Console.WriteLine("2. Insertar administrativo.");
+            Console.WriteLine("3. Actualizar administrativo.");
+            Console.WriteLine("4. Listar por nombre administrativo.");
             Console.WriteLine("X.  Salir");
         }
 

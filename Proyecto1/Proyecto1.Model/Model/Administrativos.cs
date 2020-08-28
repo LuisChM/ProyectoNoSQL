@@ -19,6 +19,7 @@ namespace Proyecto1.Model
 
         [BsonElement("information")]
         public Information information { get; set; }
+
         [BsonElement("lenguages")]
         public string[] lenguages { get; set; }
 
