@@ -44,7 +44,7 @@ namespace Proyecto1.AccesoDatos
         {
             var laBaseDeDatos = ConectarDB();
             var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
-            var expresssionFilter = Builders<Administrativos>.Filter.Regex(x => x.information.name, elNombreDelAdministrativos);
+            var expresssionFilter = Builders<Administrativos>.Filter.Regex(x => x.profession, elNombreDelAdministrativos);
             var elResultado = collection.Find(expresssionFilter).ToList();
             return elResultado;
         }
@@ -67,14 +67,6 @@ namespace Proyecto1.AccesoDatos
             var elResultado = collection.Find(filter).ToList();
             return elResultado;
         }
-        public IList<Profesores> ListarTodosLosProfesores()
-        {
-            var laBaseDeDatos = ConectarDB();
-            var collection = laBaseDeDatos.GetCollection<Profesores>("Profesores");
-            var filter = new BsonDocument();
-            var elResultado = collection.Find(filter).ToList();
-            return elResultado;
-        }
 
         public IList<Alumnos> ListarEmail(string elemail)
         {
@@ -91,6 +83,23 @@ namespace Proyecto1.AccesoDatos
             var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
             var expresssionFilter = Builders<Administrativos>.Filter.Regex(x => x.information.name, elNombreDelAdministrativos);
             collection.DeleteOne(expresssionFilter);
+        }
+        public IList<Alumnos> ListarNacimiento(string nacimiento)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Alumnos>("Alumnos");
+            var expresssionFilter = Builders<Alumnos>.Filter.Regex(x => x.birth, nacimiento);
+            var elResultado = collection.Find(expresssionFilter).ToList();
+            return elResultado;
+        }
+
+        public IList<Profesores> ListarProfesoresPorProfesion(string laProfesionDelAdministrativo)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Profesores>("Profesores");
+            var expresssionFilter = Builders<Profesores>.Filter.Regex(x => x.work, laProfesionDelAdministrativo);
+            var elResultado = collection.Find(expresssionFilter).ToList();
+            return elResultado;
         }
 
     }

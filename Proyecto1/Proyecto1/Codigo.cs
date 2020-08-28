@@ -43,6 +43,12 @@ namespace Proyecto1
                     case "7":
                         BorrarAdministrativo();
                         break;
+                    case "8":
+                        ListeProfesoresPorProfesion();
+                        break;
+                    case "9":
+                        ListarNacimiento();
+                        break;
                     default:
                         break;
                 }
@@ -173,6 +179,30 @@ namespace Proyecto1
 
 
 
+        private void ImprimirListadoDeProfesores(IList<Profesores> laListaDeProfesores)
+        {
+            if (laListaDeProfesores.Count > 0)
+            {
+                Console.WriteLine("Lista de todos los profesores:");
+                var contador = 0;
+                foreach (var profe in laListaDeProfesores)
+                {
+                    Console.WriteLine(string.Format("Administrativo número {4}: Id: {3}; Age: {2}; Profession: {1}; Institucion: {0}; ", profe.work, profe.country, profe.email, profe.id, contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún profesor.");
+        }
+
+        private void ListeProfesoresPorProfesion()
+        {
+            Console.Write("Digite nombre de la profesion: ");
+            var laProfesion = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeProfesores = client.ListarProfesoresPorProfesion(laProfesion);
+            ImprimirListadoDeProfesores(laListaDeProfesores);
+        }
+
         //Coleccion Alumnos
         private void ImprimirListarEmail(IList<Alumnos> laListaDeEmail)
         {
@@ -198,12 +228,34 @@ namespace Proyecto1
             ImprimirListarEmail(laListaDeEmail);
         }
 
+        private void ImprimirListarNacimiento(IList<Alumnos> laListadenacimiento)
+        {
+            if (laListadenacimiento.Count > 0)
+            {
+                Console.WriteLine("Lista de Alumnos:");
+                var contador = 0;
+                foreach (var nacimiento in laListadenacimiento)
+                {
+                    Console.WriteLine(string.Format("Alumno número {2}: Id: {1};  Fecha de Nacimiento: {0} ", nacimiento.birth, nacimiento.id.ToString(), contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún Alumno.");
+        }
 
-      
+        private void ListarNacimiento()
+        {
+            Console.Write("Digite la fecha de nacimiento: ");
+            var nacimiento = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDenacimiento = client.ListarNacimiento(nacimiento);
+            ImprimirListarNacimiento(laListaDenacimiento);
+        }
+
 
         private void ListeAdministrativosPorProfesion()
         {
-            Console.Write("Digite nombre de la profesion: ");
+            Console.Write("Digite nombre del usuario: ");
             var laProfesion = Console.ReadLine();
             var client = new Proyecto1.AccesoDatos.Conexion();
             var laListaDeAdministrativos = client.ListarAdministrativosPorProfesion(laProfesion);
@@ -211,26 +263,6 @@ namespace Proyecto1
         }
 
 
-        private void ImprimirListadoDeProfesores(IList<Profesores> laListaDeProfesores)
-        {
-            if (laListaDeProfesores.Count > 0)
-            {
-                Console.WriteLine("Lista de todos los profesores:");
-                var contador = 0;
-                foreach (var profe in laListaDeProfesores)
-                {
-                    Console.WriteLine(string.Format("Administrativo número {2}: Id: {1} Email{0}", profe.email, profe.id, contador++.ToString()));
-                }
-            }
-            else
-                Console.WriteLine("No se encontró ningún profesor.");
-        }
-        private void ListarTodosLosProfesores()
-        {
-            var client = new Proyecto1.AccesoDatos.Conexion();
-            var laListaDeAnimalitos = client.ListarTodosLosProfesores();
-            ImprimirListadoDeProfesores(laListaDeAnimalitos);
-        }
 
         private void DesplegarMenu()
         {
@@ -240,8 +272,10 @@ namespace Proyecto1
             Console.WriteLine("3. Actualizar administrativo.");
             Console.WriteLine("4. Listar todo administrativo.");
             Console.WriteLine("5. Listar alumno por email.");
-            Console.WriteLine("6. Listar los administrativos por profesion..");
+            Console.WriteLine("6. Listar los administrativos por profesion.");
             Console.WriteLine("7. Borrar registro de administrativos");
+            Console.WriteLine("8. Listar profesores por profesion");
+            Console.WriteLine("9. Listar alumno por fecha de nacimiento.");
             Console.WriteLine("X.  Salir");
         }
 
