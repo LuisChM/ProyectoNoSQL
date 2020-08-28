@@ -67,6 +67,14 @@ namespace Proyecto1.AccesoDatos
             var elResultado = collection.Find(filter).ToList();
             return elResultado;
         }
+        public IList<Profesores> ListarTodosLosProfesores()
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Profesores>("Profesores");
+            var filter = new BsonDocument();
+            var elResultado = collection.Find(filter).ToList();
+            return elResultado;
+        }
 
         public IList<Alumnos> ListarEmail(string elemail)
         {
@@ -77,13 +85,12 @@ namespace Proyecto1.AccesoDatos
             return elResultado;
         }
 
-        public IList<Profesores> ListarAdministrativosPorProfesion(string laProfesionDelAdministrativo)
+        public void BorrarAdministrativo(string elNombreDelAdministrativos)
         {
             var laBaseDeDatos = ConectarDB();
-            var collection = laBaseDeDatos.GetCollection<Profesores>("Administrativo");
-            var expresssionFilter = Builders<Profesores>.Filter.Regex(x => x.teacher, laProfesionDelAdministrativo);
-            var elResultado = collection.Find(expresssionFilter).ToList();
-            return elResultado;
+            var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
+            var expresssionFilter = Builders<Administrativos>.Filter.Regex(x => x.information.name, elNombreDelAdministrativos);
+            collection.DeleteOne(expresssionFilter);
         }
 
     }

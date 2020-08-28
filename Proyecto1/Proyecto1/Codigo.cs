@@ -37,8 +37,11 @@ namespace Proyecto1
                     case "5":
                         ListarEmail();
                         break;
-                    case "5":
-                        ListarTodosLoAdministrativos();
+                    case "6":
+                        ListeAdministrativosPorProfesion();
+                        break;
+                    case "7":
+                        BorrarAdministrativo();
                         break;
                     default:
                         break;
@@ -59,6 +62,16 @@ namespace Proyecto1
                 Console.WriteLine(collection.ToString());
             }
         }
+        //Eliminar todo el registro de un administrativo
+        private void BorrarAdministrativo()
+        {
+            Console.Write("Digite el nombre del admin: ");
+            var elNombreDelAdministrativos = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            client.BorrarAdministrativo(elNombreDelAdministrativos);
+        }
+
+
 
         //Insertar en la coleccion de Administrativos
         private void InsertarAdministrativo()
@@ -193,14 +206,12 @@ namespace Proyecto1
             Console.Write("Digite nombre de la profesion: ");
             var laProfesion = Console.ReadLine();
             var client = new Proyecto1.AccesoDatos.Conexion();
-            var laListaDeAdministrativos = client.ListarAdministrativosPorProfesion(laProfesionDelAdministrativo);
+            var laListaDeAdministrativos = client.ListarAdministrativosPorProfesion(laProfesion);
             ImprimirListadoDeAdministrativos(laListaDeAdministrativos);
         }
 
 
-        /// //////////////////////////////////////////////////////////////////////////
-
-        private void ImprimirListadoDeAdministrativos(IList<Profesores> laListaDeProfesores)
+        private void ImprimirListadoDeProfesores(IList<Profesores> laListaDeProfesores)
         {
             if (laListaDeProfesores.Count > 0)
             {
@@ -208,7 +219,7 @@ namespace Proyecto1
                 var contador = 0;
                 foreach (var profe in laListaDeProfesores)
                 {
-                    Console.WriteLine(string.Format("Administrativo número {4}: Id: {3}; Age: {2}; Profession: {1}; Institucion: {0}; ", profe. admin.age, admin.AdminId, contador++.ToString()));
+                    Console.WriteLine(string.Format("Administrativo número {2}: Id: {1} Email{0}", profe.email, profe.id, contador++.ToString()));
                 }
             }
             else
@@ -221,10 +232,6 @@ namespace Proyecto1
             ImprimirListadoDeProfesores(laListaDeAnimalitos);
         }
 
-       
-
-
-
         private void DesplegarMenu()
         {
             Console.WriteLine("Menu Principal");
@@ -234,6 +241,7 @@ namespace Proyecto1
             Console.WriteLine("4. Listar todo administrativo.");
             Console.WriteLine("5. Listar alumno por email.");
             Console.WriteLine("6. Listar los administrativos por profesion..");
+            Console.WriteLine("7. Borrar registro de administrativos");
             Console.WriteLine("X.  Salir");
         }
 
