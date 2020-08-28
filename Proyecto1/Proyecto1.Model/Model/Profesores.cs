@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Proyecto1.Model
 {
-     public class Profesores
+
+    [BsonIgnoreExtraElements]
+    public class Profesores
     {
 
-        [BsonIgnoreExtraElements]
-        public class Alumnos
-        {
+   
             [BsonId]
             public ObjectId _Id { get; set; }
 
@@ -59,4 +59,4 @@ namespace Proyecto1.Model
         }
 
     }
-}
+

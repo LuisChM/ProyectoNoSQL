@@ -77,5 +77,14 @@ namespace Proyecto1.AccesoDatos
             return elResultado;
         }
 
+        public IList<Profesores> ListarAdministrativosPorProfesion(string laProfesionDelAdministrativo)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Profesores>("Administrativo");
+            var expresssionFilter = Builders<Profesores>.Filter.Regex(x => x.teacher, laProfesionDelAdministrativo);
+            var elResultado = collection.Find(expresssionFilter).ToList();
+            return elResultado;
+        }
+
     }
 }

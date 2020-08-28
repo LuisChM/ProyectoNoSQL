@@ -37,6 +37,9 @@ namespace Proyecto1
                     case "5":
                         ListarEmail();
                         break;
+                    case "5":
+                        ListarTodosLoAdministrativos();
+                        break;
                     default:
                         break;
                 }
@@ -183,9 +186,42 @@ namespace Proyecto1
         }
 
 
+      
+
+        private void ListeAdministrativosPorProfesion()
+        {
+            Console.Write("Digite nombre de la profesion: ");
+            var laProfesion = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeAdministrativos = client.ListarAdministrativosPorProfesion(laProfesionDelAdministrativo);
+            ImprimirListadoDeAdministrativos(laListaDeAdministrativos);
+        }
 
 
+        /// //////////////////////////////////////////////////////////////////////////
 
+        private void ImprimirListadoDeAdministrativos(IList<Profesores> laListaDeProfesores)
+        {
+            if (laListaDeProfesores.Count > 0)
+            {
+                Console.WriteLine("Lista de todos los profesores:");
+                var contador = 0;
+                foreach (var profe in laListaDeProfesores)
+                {
+                    Console.WriteLine(string.Format("Administrativo número {4}: Id: {3}; Age: {2}; Profession: {1}; Institucion: {0}; ", profe. admin.age, admin.AdminId, contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún profesor.");
+        }
+        private void ListarTodosLosProfesores()
+        {
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeAnimalitos = client.ListarTodosLosProfesores();
+            ImprimirListadoDeProfesores(laListaDeAnimalitos);
+        }
+
+       
 
 
 
@@ -197,6 +233,7 @@ namespace Proyecto1
             Console.WriteLine("3. Actualizar administrativo.");
             Console.WriteLine("4. Listar todo administrativo.");
             Console.WriteLine("5. Listar alumno por email.");
+            Console.WriteLine("6. Listar los administrativos por profesion..");
             Console.WriteLine("X.  Salir");
         }
 
