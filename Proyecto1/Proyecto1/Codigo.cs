@@ -31,9 +31,12 @@ namespace Proyecto1
                     case "3":
                         ActualizarCityAdministrativo();
                         break;
-                    //case "4":
-                    //    ListarAdministrativosPorNombre();
-                    //    break;
+                    case "4":
+                        ListarTodosLoAdministrativos();
+                        break;
+                    case "5":
+                        ListarEmail();
+                        break;
                     default:
                         break;
                 }
@@ -131,10 +134,53 @@ namespace Proyecto1
         }
 
 
+        private void ImprimirListadoDeAdministrativos2(IList<Administrativos> laListaDeAdministrativos)
+        {
+            if (laListaDeAdministrativos.Count > 0)
+            {
+                Console.WriteLine("Lista de todos los administrativos:");
+                var contador = 0;
+                foreach (var admin in laListaDeAdministrativos)
+                {
+                    Console.WriteLine(string.Format("Administrativo número {4}: Id: {3}; Age: {2}; Profession: {1}; Institucion: {0}; ", admin.institution, admin.profession, admin.age, admin.AdminId, contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún administrativo.");
+        }
+        private void ListarTodosLoAdministrativos()
+        {
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeAnimalitos = client.ListarTodosLoAdministrativos();
+            ImprimirListadoDeAdministrativos2(laListaDeAnimalitos);
+        }
 
 
 
+        //Coleccion Alumnos
+        private void ImprimirListarEmail(IList<Alumnos> laListaDeEmail)
+        {
+            if (laListaDeEmail.Count > 0)
+            {
+                Console.WriteLine("Lista de emails:");
+                var contador = 0;
+                foreach (var correo in laListaDeEmail)
+                {
+                    Console.WriteLine(string.Format("Correo número {2}: Id: {1};  Email: {0} ", correo.email, correo.id.ToString(), contador++.ToString()));
+                }
+            }
+            else
+                Console.WriteLine("No se encontró ningún email.");
+        }
 
+        private void ListarEmail()
+        {
+            Console.Write("Digite el email: ");
+            var elEmail = Console.ReadLine();
+            var client = new Proyecto1.AccesoDatos.Conexion();
+            var laListaDeEmail = client.ListarEmail(elEmail);
+            ImprimirListarEmail(laListaDeEmail);
+        }
 
 
         private void DesplegarMenu()
@@ -143,7 +189,8 @@ namespace Proyecto1
             Console.WriteLine("1. Listar las colecciones.");
             Console.WriteLine("2. Insertar administrativo.");
             Console.WriteLine("3. Actualizar administrativo.");
-            Console.WriteLine("4. Listar por nombre administrativo.");
+            Console.WriteLine("4. Listar todo administrativo.");
+            Console.WriteLine("5. Listar alumno por email.");
             Console.WriteLine("X.  Salir");
         }
 

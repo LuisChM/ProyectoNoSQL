@@ -40,6 +40,15 @@ namespace Proyecto1.AccesoDatos
             var elResultado = collection.Find(expresssionFilter).ToList();
             return elResultado;
         }
+        public IList<Administrativos> ListarAdministrativosPorProfesion(string elNombreDelAdministrativos)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
+            var expresssionFilter = Builders<Administrativos>.Filter.Regex(x => x.information.name, elNombreDelAdministrativos);
+            var elResultado = collection.Find(expresssionFilter).ToList();
+            return elResultado;
+        }
+
         public void ActualizarCityAdministrativo(ObjectId AdminId, string laNuevaCiudad)
         {
             var laBaseDeDatos = ConectarDB();
@@ -49,6 +58,24 @@ namespace Proyecto1.AccesoDatos
             collection.UpdateOne(filter, update);
         }
 
-        
+
+        public IList<Administrativos> ListarTodosLoAdministrativos()
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Administrativos>("Administrativos");
+            var filter = new BsonDocument();
+            var elResultado = collection.Find(filter).ToList();
+            return elResultado;
+        }
+
+        public IList<Alumnos> ListarEmail(string elemail)
+        {
+            var laBaseDeDatos = ConectarDB();
+            var collection = laBaseDeDatos.GetCollection<Alumnos>("Alumnos");
+            var expresssionFilter = Builders<Alumnos>.Filter.Regex(x => x.email, elemail);
+            var elResultado = collection.Find(expresssionFilter).ToList();
+            return elResultado;
+        }
+
     }
 }

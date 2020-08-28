@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Administrativos.cs" />
+    <Compile Include="Model\Alumnos.cs" />
     <Compile Include="Model\Contacto.cs" />
     <Compile Include="Model\Information.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
